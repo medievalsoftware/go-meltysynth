@@ -318,8 +318,7 @@ func (s *Synthesizer) Reset() {
 	s.blockRead = s.BlockSize
 }
 
-func (s *Synthesizer) Render(left []float32, right []float32) {
-	var wrote int32
+func (s *Synthesizer) Render(left []float32, right []float32) (wrote int32) {
 	length := int32(len(left))
 	for wrote < length {
 		if s.blockRead == s.BlockSize {
@@ -339,6 +338,7 @@ func (s *Synthesizer) Render(left []float32, right []float32) {
 		s.blockRead += rem
 		wrote += rem
 	}
+	return
 }
 
 func (s *Synthesizer) renderBlock() {

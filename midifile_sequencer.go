@@ -40,8 +40,7 @@ func (seq *MidiFileSequencer) Stop() {
 	seq.synthesizer.Reset()
 }
 
-func (seq *MidiFileSequencer) Render(left []float32, right []float32) {
-	var wrote int32
+func (seq *MidiFileSequencer) Render(left []float32, right []float32) (wrote int32) {
 	length := int32(len(left))
 	for wrote < length {
 		if seq.blockWrote == seq.synthesizer.BlockSize {
@@ -59,6 +58,7 @@ func (seq *MidiFileSequencer) Render(left []float32, right []float32) {
 		seq.blockWrote += rem
 		wrote += rem
 	}
+	return
 }
 
 func (seq *MidiFileSequencer) processEvents() {
